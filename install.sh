@@ -3,7 +3,7 @@
 # install.sh
 #
 # This script automates the setup of a Zsh environment with Oh My Zsh,
-# Powerlevel10k, and custom configurations from this dotfiles repository.
+# Powerlevel10k, Neofetch, and custom configurations from this dotfiles repository.
 
 # --- Helper Functions ---
 print_info() {
@@ -28,6 +28,26 @@ backup_file() {
         mv "$1" "$1.bak"
     fi
 }
+
+# --- Helper function to install packages ---
+install_package() {
+    PACKAGE=$1
+    if command -v apt-get &> /dev/null; then
+        sudo apt-get update && sudo apt-get install -y "$PACKAGE"
+    elif command -v dnf &> /dev/null; then
+        sudo dnf install -y "$PACKAGE"
+    elif command -v yum &> /dev/null; then
+        sudo yum install -y "$PACKAGE"
+    elif command -v pacman &> /dev/null; then
+        sudo pacman -S --noconfirm "$PACKAGE"
+    elif command -v brew &> /dev/null; then
+        brew install "$PACKAGE"
+    else
+        print_error "No supported package manager found (apt, dnf, yum, pacman, brew). Please install '$PACKAGE' manually."
+        return 1
+    fi
+}
+
 
 # --- Main Setup ---
 
@@ -56,7 +76,6 @@ else
 fi
 
 # Step 3: Install common plugins (zsh-autosuggestions and zsh-syntax-highlighting)
-# You can add more plugins here following the same pattern.
 PLUGINS_DIR="$ZSH_CUSTOM_DIR/plugins"
 mkdir -p "$PLUGINS_DIR"
 
@@ -80,29 +99,46 @@ else
     print_info "zsh-syntax-highlighting is already installed."
 fi
 
+# Step 4: Install Neofetch
+if ! command -v neofetch &> /dev/null; then
+    print_info "Installing Neofetch..."
+    install_package "neofetch"
+    print_success "Neofetch installed."
+else
+    print_info "Neofetch is already installed."
+fi
 
-# Step 4: Backup existing config files and create symbolic links
+# Step 5: Backup existing config files and create symbolic links
 print_info "Backing up old dotfiles and creating symbolic links..."
 
-# Backup and link .zshrc
+# Link .zshrc
 backup_file "$HOME/.zshrc"
 ln -s "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 print_success "Linked .zshrc"
 
-# Backup and link .p10k.zsh
+# Link .p10k.zsh
 backup_file "$HOME/.p10k.zsh"
 ln -s "$DOTFILES_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
 print_success "Linked .p10k.zsh"
 
-# You can add more files to link here. For example:
-# backup_file "$HOME/.gitconfig"
-# ln -s "$DOTFILES_DIR/.gitconfig" "$HOME/.gitconfig"
-# print_success "Linked .gitconfig"
+# Link Neofetch config
+NEOFETCH_CONFIG_DIR="$HOME/.config/neofetch"
+NEOFETCH_CONFIG_FILE="$NEOFETCH_CONFIG_DIR/config.conf"
+DOTFILES_NEOFETCH_CONFIG="$DOTFILES_DIR/neofetch/config.conf"
 
-# Step 5: Set Zsh as the default shell if it isn't already
+if [ -f "$DOTFILES_NEOFETCH_CONFIG" ]; then
+    mkdir -p "$NEOFETCH_CONFIG_DIR"
+    backup_file "$NEOFETCH_CONFIG_FILE"
+    ln -s "$DOTFILES_NEOFETCH_CONFIG" "$NEOFETCH_CONFIG_FILE"
+    print_success "Linked Neofetch config.conf"
+else
+    print_info "No neofetch/config.conf found in the repository, skipping link."
+fi
+
+
+# Step 6: Set Zsh as the default shell if it isn't already
 if [ "$(basename "$SHELL")" != "zsh" ]; then
     print_info "Setting Zsh as the default shell..."
-    # Check if chsh command is available
     if command -v chsh >/dev/null 2>&1; then
         chsh -s "$(which zsh)"
         if [ $? -ne 0 ]; then
