@@ -1,0 +1,16 @@
+# Oh My Zsh
+.oh-my-zsh/
+.zsh_history
+.zsh_sessions/
+.zcompdump*
+
+# macOS specific
+.DS_Store
+
+# Backup files created by the install script
+*.bak
+
+# General
+*.log
+*.cache
+
