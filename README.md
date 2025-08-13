@@ -1,6 +1,7 @@
 # Zsh & Neofetch Configuration
 
 This repository contains my personal configuration files for creating a consistent and powerful terminal environment across multiple machines. It automates the setup of Zsh, Oh My Zsh, the Powerlevel10k theme, and Neofetch.
+<img width="1917" height="937" alt="image" src="https://github.com/user-attachments/assets/91bc7a8d-a3c0-44de-b1b0-c4f09db0d022" />
 
 ## ✨ Features
 
