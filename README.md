@@ -1,3 +1,8 @@
+# 🎨 Instantly Transform Your Terminal!
+
+Give your macOS Terminal a fresh, modern look in seconds! With just a few clicks, you can import a stunning custom theme and enjoy a visually appealing, personalized command-line experience. Follow these simple steps to make your Terminal stand out from the
+rest.
+
 # Zsh & Neofetch Configuration
 
 This repository contains my personal configuration files for creating a consistent and powerful terminal environment across multiple machines. It automates the setup of Zsh, Oh My Zsh, the Powerlevel10k theme, and Neofetch.
