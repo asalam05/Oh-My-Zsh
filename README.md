@@ -1,4 +1,4 @@
-# My Zsh & Neofetch Dotfiles
+# Zsh & Neofetch Configuration
 
 This repository contains my personal configuration files for creating a consistent and powerful terminal environment across multiple machines. It automates the setup of Zsh, Oh My Zsh, the Powerlevel10k theme, and Neofetch.
 
@@ -37,3 +37,12 @@ Before you begin, ensure your system has the following installed:
     ```
 
 The script will handle the rest. Once it's finished, **restart your terminal** to apply all changes.
+
+### Applying theme in Mac Termial
+1. Open **Terminal**.
+2. Go to the menu bar and select **Terminal > Settings...** (or **Preferences...** on older macOS versions).
+3. In the Settings window, click the **Profiles** tab.
+4. At the bottom of the sidebar, click the **gear icon** and select **Import...**.
+5. Locate and select the exported Terminal theme file from downloaded repo - `Oh My Zsh - Pro Terminal Theme.terminal`
+6. The new theme will appear in the list of profiles. Select it and click **Default** to make it your default profile.
+7. Close the Settings window. Your Terminal will now use the new theme.
