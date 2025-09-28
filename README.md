@@ -1,20 +1,41 @@
+## 🧩 Shell Completion Setup
+
+This setup uses static completion scripts for CLI tools to ensure fast and reliable autocompletion. Completion scripts for `aws`, `eksctl`, and `kubectl` are generated once and stored in `zsh/completions/`. The `.zshrc` sources these files:
+
+```sh
+[ -f "$HOME/Scripts/dotfiles/zsh/completions/aws.zsh" ] && source "$HOME/Scripts/dotfiles/zsh/completions/aws.zsh"
+[ -f "$HOME/Scripts/dotfiles/zsh/completions/eksctl.zsh" ] && source "$HOME/Scripts/dotfiles/zsh/completions/eksctl.zsh"
+[ -f "$HOME/Scripts/dotfiles/zsh/completions/kubectl.zsh" ] && source "$HOME/Scripts/dotfiles/zsh/completions/kubectl.zsh"
+```
+
+The `install.sh` script will automatically generate these completion files if the tools are installed. If you update a tool, re-run the install script to refresh its completion.
+
+## 🔧 AWS CLI Configuration
+
+To disable paging for AWS CLI output in every session, the following is set in `.zshrc`:
+
+```sh
+export AWS_PAGER=""
+```
+
+This ensures AWS CLI output is always shown directly in your terminal, without paging.
+
 # 🎨 Instantly Transform Your Terminal!
 
-Give your macOS Terminal a fresh, modern look in seconds! With just a few clicks, you can import a stunning custom theme and enjoy a visually appealing, personalized command-line experience. Follow these simple steps to make your Terminal stand out from the
-rest.
+This repository contains my personal configuration files for a modern, consistent, and powerful terminal environment across macOS and Linux. It automates the setup of Zsh, Oh My Zsh, Powerlevel10k, Neofetch, and essential CLI tool completions.
 
-# Zsh & Neofetch Configuration
-
-This repository contains my personal configuration files for creating a consistent and powerful terminal environment across multiple machines. It automates the setup of Zsh, Oh My Zsh, the Powerlevel10k theme, and Neofetch.
 <img width="1917" height="937" alt="image" src="https://github.com/user-attachments/assets/91bc7a8d-a3c0-44de-b1b0-c4f09db0d022" />
+
+---
 
 ## ✨ Features
 
-* **Zsh Configuration (`.zshrc`):** A robust setup with custom aliases, functions, and optimized settings.
-* **Powerlevel10k (`.p10k.zsh`):** A pre-configured, fast, and visually appealing prompt.
-* **Neofetch (`neofetch/config.conf`):** A custom configuration for the system information tool.
-* **Essential Plugins:** Includes `zsh-autosuggestions` and `zsh-syntax-highlighting` by default.
-* **Automated Installation:** An `install.sh` script handles everything from package installation to symlinking configuration files.
+- **Zsh Configuration (`.zshrc`):** Custom aliases, functions, and optimized settings.
+- **Powerlevel10k (`.p10k.zsh`):** Fast, beautiful prompt with AWS profile display.
+- **Neofetch (`neofetch/config.conf`):** Custom system info display.
+- **Essential Plugins:** Includes `zsh-autosuggestions`, `zsh-syntax-highlighting`, and more.
+- **Automated Installation:** `install.sh` script handles package installation, symlinking, and completion setup.
+- **Static CLI Completions:** Fast, reliable autocompletion for `aws`, `eksctl`, and `kubectl`.
 
 ---
 
@@ -22,33 +43,60 @@ This repository contains my personal configuration files for creating a consiste
 
 ### Prerequisites
 
-Before you begin, ensure your system has the following installed:
+Make sure you have:
 
-* `git`
-* `zsh`
-* `curl` or `wget`
-* `sudo` access (the script installs packages)
-* A [**Nerd Font**](https://www.nerdfonts.com/font-downloads) (e.g., MesloLGS NF) installed and enabled in your terminal for icons to render correctly.
+- `git`
+- `zsh`
+- `curl` or `wget`
+- `sudo` access
+- A [Nerd Font](https://www.nerdfonts.com/font-downloads) (e.g., MesloLGS NF) enabled in your terminal
 
-### Installation on a New Machine
+### Installation
 
-1.  **Clone the repository:**
-    ```sh
-    # Clone it to a location of your choice
-    git clone git@github.com:asalam05/Oh-My-Zsh.git
-    ```
-2.  **Run the installation script:**
-    ```sh
-    bash install.sh
-    ```
+1. **Clone the repository:**
+   ```sh
+   git clone git@github.com:asalam05/Oh-My-Zsh.git
+   ```
+2. **Run the installation script:**
+   ```sh
+   bash install.sh
+   ```
+3. **Restart your terminal** to apply all changes.
 
-The script will handle the rest. Once it's finished, **restart your terminal** to apply all changes.
+---
 
-### Applying theme in Mac Termial
+## 🧩 Shell Completion Setup
+
+Static completion scripts for CLI tools are generated once and stored in `zsh/completions/`. The `.zshrc` sources these files for fast, reliable autocompletion:
+
+```sh
+[ -f "$HOME/Scripts/dotfiles/zsh/completions/aws.zsh" ] && source "$HOME/Scripts/dotfiles/zsh/completions/aws.zsh"
+[ -f "$HOME/Scripts/dotfiles/zsh/completions/eksctl.zsh" ] && source "$HOME/Scripts/dotfiles/zsh/completions/eksctl.zsh"
+[ -f "$HOME/Scripts/dotfiles/zsh/completions/kubectl.zsh" ] && source "$HOME/Scripts/dotfiles/zsh/completions/kubectl.zsh"
+```
+
+The `install.sh` script will automatically generate these completion files if the tools are installed. If you update a tool, re-run the install script to refresh its completion.
+
+---
+
+## 🔧 AWS CLI Configuration
+
+To disable paging for AWS CLI output in every session, the following is set in `.zshrc`:
+
+```sh
+export AWS_PAGER=""
+```
+
+This ensures AWS CLI output is always shown directly in your terminal, without paging.
+
+---
+
+## 🎨 Applying the Terminal Theme (macOS)
+
 1. Open **Terminal**.
-2. Go to the menu bar and select **Terminal > Settings...** (or **Preferences...** on older macOS versions).
-3. In the Settings window, click the **Profiles** tab.
-4. At the bottom of the sidebar, click the **gear icon** and select **Import...**.
-5. Locate and select the exported Terminal theme file from downloaded repo - `Oh My Zsh - Pro Terminal Theme.terminal`
-6. The new theme will appear in the list of profiles. Select it and click **Default** to make it your default profile.
-7. Close the Settings window. Your Terminal will now use the new theme.
+2. Go to **Terminal > Settings...** (or **Preferences...** on older macOS versions).
+3. Click the **Profiles** tab.
+4. Click the **gear icon** at the bottom and select **Import...**.
+5. Select `Oh My Zsh - Pro Terminal Theme.terminal` from the repo.
+6. Set the new theme as **Default**.
+7. Close Settings. Your Terminal now uses the new theme.
