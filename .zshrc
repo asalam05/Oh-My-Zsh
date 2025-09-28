@@ -1,3 +1,19 @@
+# Always disable AWS CLI pager
+export AWS_PAGER=""
+# --- AWS CLI autocomplete ---
+[ -f "$HOME/Scripts/dotfiles/zsh/completions/aws.zsh" ] && source "$HOME/Scripts/dotfiles/zsh/completions/aws.zsh"
+
+# --- eksctl autocomplete ---
+[ -f "$HOME/Scripts/dotfiles/zsh/completions/eksctl.zsh" ] && source "$HOME/Scripts/dotfiles/zsh/completions/eksctl.zsh"
+
+# --- kubectl autocomplete ---
+[ -f "$HOME/Scripts/dotfiles/zsh/completions/kubectl.zsh" ] && source "$HOME/Scripts/dotfiles/zsh/completions/kubectl.zsh"
+
+# --- Show AWS profile in prompt ---
+aws_profile_segment() {
+  [[ -n "$AWS_PROFILE" ]] && echo "%F{yellow}(aws:$AWS_PROFILE)%f "
+}
+export PROMPT="$(aws_profile_segment)${PROMPT}"
 # Custom loading for neofetch
 neofetch
 
