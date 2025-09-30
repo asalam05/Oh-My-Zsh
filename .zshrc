@@ -104,7 +104,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 #---------------------------------------------------------------------------
 #
 #
-plugins=(aws kubectl git zsh-autosuggestions zsh-syntax-highlighting z)
+plugins=(web-search aws kubectl git zsh-autosuggestions zsh-syntax-highlighting z)
 
 source $ZSH/oh-my-zsh.sh
 
