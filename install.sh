@@ -1,28 +1,3 @@
-# --- Generate kubectl completion ---
-if command -v kubectl &> /dev/null; then
-    print_info "Generating kubectl Zsh completion script..."
-    kubectl completion zsh > "$DOTFILES_DIR/completions/kubectl.zsh"
-    print_success "kubectl completion script generated."
-else
-    print_info "kubectl not found, skipping completion script generation."
-fi
-
-# --- Generate AWS CLI completion ---
-if command -v aws_completer &> /dev/null; then
-    print_info "Generating AWS CLI Zsh completion script..."
-    aws_completer > "$DOTFILES_DIR/completions/aws.zsh"
-    print_success "AWS CLI completion script generated."
-else
-    print_info "aws_completer not found, skipping completion script generation."
-fi
-# --- Generate eksctl completion ---
-if command -v eksctl &> /dev/null; then
-    print_info "Generating eksctl Zsh completion script..."
-    eksctl completion zsh > "$DOTFILES_DIR/completions/eksctl.zsh"
-    print_success "eksctl completion script generated."
-else
-    print_info "eksctl not found, skipping completion script generation."
-fi
 #!/bin/bash
 #
 # install.sh
@@ -73,13 +48,42 @@ install_package() {
     fi
 }
 
-
 # --- Main Setup ---
 
 # Define the location of the dotfiles repository.
 # This finds the script's own directory, making it independent of where it's run from.
 DOTFILES_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )"
 ZSH_CUSTOM_DIR="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
+
+# --- Ensure completions directory exists ---
+mkdir -p "$DOTFILES_DIR/completions"
+
+# --- Generate kubectl completion ---
+if command -v kubectl &> /dev/null; then
+    print_info "Generating kubectl Zsh completion script..."
+    kubectl completion zsh > "$DOTFILES_DIR/completions/kubectl.zsh"
+    print_success "kubectl completion script generated."
+else
+    print_info "kubectl not found, skipping completion script generation."
+fi
+
+# --- Generate AWS CLI completion ---
+if command -v aws_completer &> /dev/null; then
+    print_info "Generating AWS CLI Zsh completion script..."
+    aws_completer > "$DOTFILES_DIR/completions/aws.zsh"
+    print_success "AWS CLI completion script generated."
+else
+    print_info "aws_completer not found, skipping completion script generation."
+fi
+
+# --- Generate eksctl completion ---
+if command -v eksctl &> /dev/null; then
+    print_info "Generating eksctl Zsh completion script..."
+    eksctl completion zsh > "$DOTFILES_DIR/completions/eksctl.zsh"
+    print_success "eksctl completion script generated."
+else
+    print_info "eksctl not found, skipping completion script generation."
+fi
 
 # Step 1: Install Oh My Zsh
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
@@ -160,7 +164,6 @@ else
     print_info "No neofetch/config.conf found in the repository, skipping link."
 fi
 
-
 # Step 6: Set Zsh as the default shell if it isn't already
 if [ "$(basename "$SHELL")" != "zsh" ]; then
     print_info "Setting Zsh as the default shell..."
@@ -179,5 +182,3 @@ fi
 echo ""
 print_success "✅ All done!"
 print_info "Please restart your terminal or run 'source ~/.zshrc' to apply the changes."
-
-
